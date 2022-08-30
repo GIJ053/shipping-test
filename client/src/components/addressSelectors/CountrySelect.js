@@ -1,4 +1,4 @@
-const CountrySelect = (props) => (
+export const CountrySelect = (props) => (
     <select id="country" name="country" defaultValue={'DEFAULT'} {...props.register("countryCode", { required: true })} className="select w-full max-w-xs" >
         <option disabled value='DEFAULT'>Select Country</option>
         <option value="AF">Afghanistan</option>
@@ -255,5 +255,3 @@ const CountrySelect = (props) => (
         <option value="ZW">Zimbabwe</option>
     </select>
 )
-
-export default CountrySelect

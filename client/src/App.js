@@ -7,6 +7,7 @@ import Home from "./Views/Home";
 import Test from "./Views/Test"
 import NavBar from "./components/NavBar";
 import ShippingEstimate from "./Views/ShippingEstimate";
+import ShippingTable from "./components/ShippingTable";
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Route path="/test" element={<Test />} />
 
           <Route path="/estimate" element={<ShippingEstimate />} />
+
+          <Route path="/display-estimates" element={<ShippingTable />} />
         </Routes>
       </Router>
     </div>

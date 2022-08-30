@@ -1,20 +1,29 @@
 import { useForm } from "react-hook-form"
-import CarrierSelector from "./CarrierSelector"
-import StateSelect from "./StateSelect"
-import CountrySelect from "./CountrySelect"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { FormCarrierSelector } from "./FormCarrierSelector"
+import { StateSelect } from "./addressSelectors/StateSelect"
+import { CountrySelect } from "./addressSelectors/CountrySelect"
 import { getRates } from "../services/shipments"
 
 const ShippingForm = (props) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
-    const onSubmit = data => {
-        getRates(data)
-        console.log(data);
+    const [currentCarrier, setCurrentCarrier] = useState('')
+    const [packages, setPackages] = useState([])
+    let navigate = useNavigate()
+
+    const onSubmit = async(data) => {
+        setPackages(await getRates(data).then(response => {
+            navigate('/display-estimates', {state: {packages: response}})
+        }))
+        
+        
     }
 
+    const { register, handleSubmit, watch, formState: { errors } } = useForm()
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full grid grid-rows-3 grid-cols-2 gap-x-80 gap-y-5 bg-secondary rounded-xl p-6">
-            <CarrierSelector />
+            <FormCarrierSelector register={register}/>
 
 
             {/* include validation with required or other standard HTML validation rules */}

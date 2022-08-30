@@ -1,4 +1,4 @@
-const StateSelect = (props) => (
+export const StateSelect = (props) => (
     <select defaultValue={'DEFAULT'} {...props.register("stateProvince", { required: true })} className="select w-full max-w-xs">
         <option disabled value='DEFAULT'>Select State</option>
         <option value="AL">Alabama</option>
@@ -54,5 +54,3 @@ const StateSelect = (props) => (
         <option value="WY">Wyoming</option>
     </select>
 )
-
-export default StateSelect

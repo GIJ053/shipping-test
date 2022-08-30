@@ -1,20 +1,25 @@
+const axios = require('axios')
 const ShipEngine = require('shipengine')
 const shipengine = new ShipEngine(process.env.SHIPENGINE_KEY)
 
 
 const getRate = (req, res) => {
     async function getRatesWithShipmentDetails() {
-        const address = req.body.address
+        const userInput = req.body.userInput
 
         const shipTo = {
-            ...address,
-            addressResidentialIndicator: address.addressResidentialIndicator ? "yes" : "no"
+            name: userInput.name,
+            phone: userInput.phone,
+            addressLine1: userInput.addressLine1,
+            cityLocality: userInput.cityLocality,
+            stateProvince: userInput.stateProvince,
+            postalCode: userInput.postalCode,
+            countryCode: userInput.countryCode,
+            addressResidentialIndicator: userInput.addressResidentialIndicator ? "yes" : "no"
         }
 
         const rateOptions = {
-            carrierIds: [
-                "se-2884143"
-            ]
+            carrierIds: [userInput.carrier]
         }
 
         const shipment = {
@@ -93,7 +98,7 @@ const getRate = (req, res) => {
 
             console.log("The rates that were created:");
             console.log(result);
-            return res.json(result)
+            return res.json(result.rateResponse.rates)
         } catch (e) {
             console.log("The request that was sent");
             console.log(params);
@@ -104,6 +109,53 @@ const getRate = (req, res) => {
     getRatesWithShipmentDetails();
 }
 
+const getEstimate = (req, res) => {
+    async function grabEstimate() {
+        const userParams = req.body.location
+
+        const params = {
+            ...userParams,
+            to_country_code: "US",
+            to_postal_code: "91521"
+        }
+
+        // const params = {
+        //     carrier_ids: [
+        //         "se-2884143",
+        //     ],
+        //     from_country_code: "US",
+        //     from_postal_code: "78756",
+        //     to_country_code: "US",
+        //     to_postal_code: "91521",
+        //     weight: {
+        //         value: 17,
+        //         unit: "pound"
+        //     }
+        // }
+
+
+    
+        const headers = {
+            "Api-Key": process.env.SHIPENGINE_KEY,
+            "Content-Type": 'application/json'
+        }
+
+        try {
+            const result = await axios
+                .post('https://api.shipengine.com/v1/rates/estimate', params, {headers})
+                console.log(result.data)
+                return res.json(result.data)
+        } catch (e) {
+            console.log("The request that was sent");
+            console.log(params);
+            console.log("Error getting estimate: ", e);
+        }
+    }
+
+    grabEstimate()
+}
+
 module.exports = {
     getRate,
+    getEstimate
 }
