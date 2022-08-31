@@ -1,17 +1,18 @@
 import { useForm } from "react-hook-form"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { FormCarrierSelector } from "./FormCarrierSelector"
 import { StateSelect } from "./addressSelectors/StateSelect"
 import { CountrySelect } from "./addressSelectors/CountrySelect"
 import { getRates } from "../services/shipments"
+import { PackageDetails } from "./PackageDetails"
 
 const ShippingForm = (props) => {
-    const [currentCarrier, setCurrentCarrier] = useState('')
     const [packages, setPackages] = useState([])
     let navigate = useNavigate()
 
     const onSubmit = async(data) => {
+        console.log(data)
         setPackages(await getRates(data).then(response => {
             navigate('/display-estimates', {state: {packages: response}})
         }))
@@ -65,6 +66,8 @@ const ShippingForm = (props) => {
                     <span>Residential</span>
                 </label>
             </div>
+
+            <PackageDetails register={register}/>
 
             <input type="submit" className="btn col-span-2 mt-10" />
         </form>

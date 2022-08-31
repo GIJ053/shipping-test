@@ -7,6 +7,15 @@ const getRate = (req, res) => {
     async function getRatesWithShipmentDetails() {
         const userInput = req.body.userInput
 
+        const packages = userInput.value && userInput.unit !== 'DEFAULT' ? [
+            {
+                weight: {
+                    value: userInput.value,
+                    unit: userInput.unit
+                }
+            }
+        ] : null
+
         const shipTo = {
             name: userInput.name,
             phone: userInput.phone,
@@ -18,6 +27,19 @@ const getRate = (req, res) => {
             addressResidentialIndicator: userInput.addressResidentialIndicator ? "yes" : "no"
         }
 
+        const shipFrom = {
+            companyName: "Example Corp.",
+            name: "John Doe",
+            phone: "111-111-1111",
+            addressLine1: "4009 Marathon Blvd",
+            addressLine2: "Suite 300",
+            cityLocality: "Austin",
+            stateProvince: "TX",
+            postalCode: "78756",
+            countryCode: "US",
+            addressResidentialIndicator: "no",
+        }
+
         const rateOptions = {
             carrierIds: [userInput.carrier]
         }
@@ -25,26 +47,8 @@ const getRate = (req, res) => {
         const shipment = {
             validateAddress: "no_validation",
             shipTo: shipTo,
-            shipFrom: {
-                companyName: "Example Corp.",
-                name: "John Doe",
-                phone: "111-111-1111",
-                addressLine1: "4009 Marathon Blvd",
-                addressLine2: "Suite 300",
-                cityLocality: "Austin",
-                stateProvince: "TX",
-                postalCode: "78756",
-                countryCode: "US",
-                addressResidentialIndicator: "no",
-            },
-            packages: [
-                {
-                    weight: {
-                        value: 1.0,
-                        unit: "ounce",
-                    },
-                },
-            ],
+            shipFrom: shipFrom,
+            packages: packages ?? null
         }
 
         const params = {
@@ -95,6 +99,9 @@ const getRate = (req, res) => {
 
         try {
             const result = await shipengine.getRatesWithShipmentDetails(params);
+
+            console.log("The request that was sent");
+            console.log(params);
 
             console.log("The rates that were created:");
             console.log(result);

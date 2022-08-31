@@ -4,7 +4,7 @@ const ShippingTable = (props) => {
     const location = useLocation() //gets the state of packages from the estimate page
     const packages = location.state.packages
 
-    const PackageRow = ({shipment}) => {
+    const PackageRow = ({shipment}) => {//The sdk and the api return camelCase and underscore respectively, used nullish operator cause don't feel like fixing it right now
         return (
             <tr>
                 <td>{shipment.serviceType ?? shipment.service_type}</td>
