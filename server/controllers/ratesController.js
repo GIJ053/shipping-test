@@ -162,7 +162,35 @@ const getEstimate = (req, res) => {
     grabEstimate()
 }
 
+const getLabel = (req, res) => {
+    async function createLabelFromRate() {
+        const savedRate = req.body.rateId
+
+        const params = {
+          rateId: savedRate,
+          validateAddress: "no_validation",
+          labelLayout: "4x6",
+          labelFormat: "pdf",
+          labelDownloadType: "url",
+          displayScheme: "label"
+        }
+      
+        try {
+          const result = await shipengine.createLabelFromRate(params);
+      
+          console.log("The label that was created:");
+          console.log(result);
+          return res.json(result)
+        } catch (e) {
+          console.log("Error creating label: ", e.message);
+        }
+      }
+
+    createLabelFromRate()
+}
+
 module.exports = {
     getRate,
-    getEstimate
+    getEstimate,
+    getLabel
 }

@@ -11,3 +11,8 @@ export const getEstimate = async (location) => {
     const response = await axios.post('/api/estimate', {location})
     return response.data
 }
+
+export const getLabel = async (savedRate) => {
+    const response = await axios.post('/api/printlabel', {savedRate})
+    return response.data
+}

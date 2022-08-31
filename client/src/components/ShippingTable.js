@@ -12,6 +12,7 @@ const ShippingTable = (props) => {
                 <td>{shipment.deliveryDays ?? shipment.delivery_days}</td>
                 <td>{(shipment.estimatedDeliveryDate ?? shipment.estimated_delivery_date).substring(0,10)}</td>
                 <td>{shipment.trackable ? 'yes' : 'no'}</td>
+                
             </tr>
         )
     }
