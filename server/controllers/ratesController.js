@@ -1,6 +1,7 @@
 const axios = require('axios')
+const API_KEY = process.env.SHIPENGINE_KEY
 const ShipEngine = require('shipengine')
-const shipengine = new ShipEngine(process.env.SHIPENGINE_KEY)
+const shipengine = new ShipEngine(API_KEY)
 
 
 const getRate = (req, res) => {
@@ -139,11 +140,9 @@ const getEstimate = (req, res) => {
         //         unit: "pound"
         //     }
         // }
-
-
-    
+        
         const headers = {
-            "Api-Key": process.env.SHIPENGINE_KEY,
+            "Api-Key": API_KEY,
             "Content-Type": 'application/json'
         }
 

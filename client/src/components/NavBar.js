@@ -6,7 +6,7 @@ const NavBar = (props) => {
             <ul className="menu menu-horizontal bg-base-100 rounded-box">
                 <li className="hover-bordered"><Link to="/">Home</Link></li>
 
-                <li className="hover-bordered"><Link to="/test">Test</Link></li>
+                <li className="hover-bordered"><Link to="/tracking">Tracking</Link></li>
 
                 <li className="hover-bordered"><Link to="/estimate">Estimate</Link></li>
 

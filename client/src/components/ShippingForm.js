@@ -1,26 +1,26 @@
-import { useForm } from "react-hook-form"
 import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { FormCarrierSelector } from "./FormCarrierSelector"
+import { PackageDetails } from "./PackageDetails"
+import { LoadingNotification } from "./LoadingNotification"
 import { StateSelect } from "./addressSelectors/StateSelect"
 import { CountrySelect } from "./addressSelectors/CountrySelect"
 import { getRates } from "../services/shipments"
-import { PackageDetails } from "./PackageDetails"
 
 const ShippingForm = (props) => {
-    const [packages, setPackages] = useState([])
+    const [loading, setLoading] = useState(false)
     let navigate = useNavigate()
 
     const onSubmit = async(data) => {
-        console.log(data)
-        setPackages(await getRates(data).then(response => {
+        setLoading(true)
+        await getRates(data).then(response => {
+            setLoading(false)
             navigate('/display-estimates', {state: {packages: response}})
-        }))
-        
-        
+        })
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full grid grid-rows-3 grid-cols-2 gap-x-80 gap-y-5 bg-secondary rounded-xl p-6">
@@ -69,7 +69,9 @@ const ShippingForm = (props) => {
 
             <PackageDetails register={register}/>
 
-            <input type="submit" className="btn col-span-2 mt-10" />
+            <input type="submit" className={`btn col-span-2 mt-10 ${loading ? 'btn-disabled' : ''}`} />
+
+            <LoadingNotification loading={loading} />
         </form>
     )
 }

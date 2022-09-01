@@ -2,13 +2,16 @@ import { CarrierSelector } from "../components/CarrierSelector"
 import { getEstimate } from "../services/shipments"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { LoadingNotification } from "../components/LoadingNotification"
 
 const ShippingEstimate = () => {
     const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const [currentCarrier, setCurrentCarrier] = useState('')
     const [packages, setPackages] = useState()
+    const [loading, setLoading] = useState(false)
 
     const handleSelect = async (event) => {
+        setLoading(true)
         setPackages() //resets packages so that people can't spam submit
         setCurrentCarrier(event.target.value)
 
@@ -21,6 +24,8 @@ const ShippingEstimate = () => {
                 unit: "pound"
             }
         }))
+
+        setLoading(false)
     }
 
     return (
@@ -37,8 +42,9 @@ const ShippingEstimate = () => {
                         Submit
                     </Link>
                 </div>
-
             </div>
+
+            <LoadingNotification loading={loading} />
         </div>
     )
 }
