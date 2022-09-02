@@ -12,11 +12,16 @@ const ShippingForm = (props) => {
     const [loading, setLoading] = useState(false)
     let navigate = useNavigate()
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         setLoading(true)
         await getRates(data).then(response => {
             setLoading(false)
-            navigate('/display-estimates', {state: {packages: response}})
+            if (response.length > 0) {
+                navigate('/display-estimates', { state: { packages: response } })
+            }
+            else {
+                alert('error')
+            }
         })
     }
 
@@ -24,7 +29,7 @@ const ShippingForm = (props) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full grid grid-rows-3 grid-cols-2 gap-x-80 gap-y-5 bg-secondary rounded-xl p-6">
-            <FormCarrierSelector register={register}/>
+            <FormCarrierSelector register={register} />
 
 
             {/* include validation with required or other standard HTML validation rules */}
@@ -67,7 +72,7 @@ const ShippingForm = (props) => {
                 </label>
             </div>
 
-            <PackageDetails register={register}/>
+            <PackageDetails register={register} />
 
             <input type="submit" className={`btn col-span-2 mt-10 ${loading ? 'btn-disabled' : ''}`} />
 

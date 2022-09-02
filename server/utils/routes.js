@@ -8,7 +8,11 @@ const router = Router()
 
 router.get('/api/carriers', carriers.getAll)
 
-router.post('/api/rates', rates.getRate)
+router.get('/api/get-ltl-carriers', carriers.getLTLCarriers)
+router.post('/api/get-ltl', carriers.getSingleLTL)
+router.post('/api/test-carrier', carriers.connectTestCarrier)
+
+router.post('/api/rates', rates.getRates)
 router.post('/api/estimate', rates.getEstimate)
 
 router.post('/api/start-tracking', tracking.startTracking)

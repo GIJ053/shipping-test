@@ -4,7 +4,7 @@ const ShipEngine = require('shipengine')
 const shipengine = new ShipEngine(API_KEY)
 
 
-const getRate = (req, res) => {
+const getRates = (req, res) => {
     async function getRatesWithShipmentDetails() {
         const userInput = req.body.userInput
 
@@ -45,11 +45,15 @@ const getRate = (req, res) => {
             carrierIds: [userInput.carrier]
         }
 
-        const shipment = {
+        const shipment = packages ? {
             validateAddress: "no_validation",
             shipTo: shipTo,
             shipFrom: shipFrom,
-            packages: packages ?? null
+            packages: packages
+        } : {
+            validateAddress: "no_validation",
+            shipTo: shipTo,
+            shipFrom: shipFrom,
         }
 
         const params = {
@@ -105,7 +109,7 @@ const getRate = (req, res) => {
             console.log(params);
 
             console.log("The rates that were created:");
-            console.log(result);
+            console.log(result.rateResponse);
             return res.json(result.rateResponse.rates)
         } catch (e) {
             console.log("The request that was sent");
@@ -140,7 +144,7 @@ const getEstimate = (req, res) => {
         //         unit: "pound"
         //     }
         // }
-        
+
         const headers = {
             "Api-Key": API_KEY,
             "Content-Type": 'application/json'
@@ -148,9 +152,9 @@ const getEstimate = (req, res) => {
 
         try {
             const result = await axios
-                .post('https://api.shipengine.com/v1/rates/estimate', params, {headers})
-                console.log(result.data)
-                return res.json(result.data)
+                .post('https://api.shipengine.com/v1/rates/estimate', params, { headers })
+            console.log(result.data)
+            return res.json(result.data)
         } catch (e) {
             console.log("The request that was sent");
             console.log(params);
@@ -166,30 +170,30 @@ const getLabel = (req, res) => {
         const savedRate = req.body.rateId
 
         const params = {
-          rateId: savedRate,
-          validateAddress: "no_validation",
-          labelLayout: "4x6",
-          labelFormat: "pdf",
-          labelDownloadType: "url",
-          displayScheme: "label"
+            rateId: savedRate,
+            validateAddress: "no_validation",
+            labelLayout: "4x6",
+            labelFormat: "pdf",
+            labelDownloadType: "url",
+            displayScheme: "label"
         }
-      
+
         try {
-          const result = await shipengine.createLabelFromRate(params);
-      
-          console.log("The label that was created:");
-          console.log(result);
-          return res.json(result)
+            const result = await shipengine.createLabelFromRate(params);
+
+            console.log("The label that was created:");
+            console.log(result);
+            return res.json(result)
         } catch (e) {
-          console.log("Error creating label: ", e.message);
+            console.log("Error creating label: ", e.message);
         }
-      }
+    }
 
     createLabelFromRate()
 }
 
 module.exports = {
-    getRate,
+    getRates,
     getEstimate,
     getLabel
 }

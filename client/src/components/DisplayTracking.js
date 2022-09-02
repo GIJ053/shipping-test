@@ -4,10 +4,12 @@ export const DisplayTracking = () => {
     const location = useLocation()
     const trackingInfo = location.state.trackingInfo
     const events = trackingInfo.events
+    const statusCodes = ['NY', 'AC', 'IT', 'DE']
+    const statusIndex = statusCodes.indexOf(trackingInfo.statusCode)
 
-    const EventRow = ({event}) => (
+    const EventRow = ({ event }) => (
         <tr>
-            <td>{event.cityLocality} {event.stateProvince}</td>
+            <td>{event.cityLocality} {event.stateProvince} {event.postalCode ?? 'N/A'}</td>
             <td>{event.description}</td>
             <td>{event.occurredAt}</td>
         </tr>
@@ -28,24 +30,19 @@ export const DisplayTracking = () => {
 
                 </div>
             </div>
-            {/* <div className="card w-4/5 bg-base-100 shadow-xl">
-                <div className="card-body">
-                    <h2 className="card-title">Card title!</h2>
 
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
+            <input type="range"
+                min="0" max="3"
+                value={statusIndex}
+                className={`range w-3/4 cursor-default ${statusIndex === '3' ? 'range-accent' : ''}`}
+                step="1" />
 
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                </div>
-            </div> */}
-
-            <ul className="steps w-full mb-10">
-                <li className="step">Not Yet In System</li>
-                <li className="step">Accepted</li>
-                <li className="step">In Transit</li>
-                <li className="step">Delivered</li>
-            </ul>
+            <div className="w-4/5 flex justify-between text-sm ">
+                <span>Not Yet in System</span>
+                <span>Accepted</span>
+                <span>In Transit</span>
+                <span>Delivered</span>
+            </div>
         </div>
     )
 
@@ -66,7 +63,7 @@ export const DisplayTracking = () => {
                     <tbody>
                         {
                             events.slice(0).reverse().map((event, idx) => {
-                                return <EventRow key={idx} event={event}/>
+                                return <EventRow key={idx} event={event} />
                             })
                         }
                     </tbody>
