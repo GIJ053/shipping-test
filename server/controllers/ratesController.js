@@ -114,7 +114,7 @@ const getRates = (req, res) => {
         } catch (e) {
             console.log("The request that was sent");
             console.log(params);
-            console.log("Error creating rates: ", e.message);
+            console.log("Error creating rates: ", e);
         }
     }
 
@@ -165,7 +165,7 @@ const getEstimate = (req, res) => {
     grabEstimate()
 }
 
-const getLabel = (req, res) => {
+const createLabel = (req, res) => {
     async function createLabelFromRate() {
         const savedRate = req.body.rateId
 
@@ -195,5 +195,5 @@ const getLabel = (req, res) => {
 module.exports = {
     getRates,
     getEstimate,
-    getLabel
+    createLabel
 }

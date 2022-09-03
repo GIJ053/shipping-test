@@ -3,7 +3,7 @@ const ShipEngine = require('shipengine')
 const API_KEY = process.env.SHIPENGINE_KEY
 const shipengine = new ShipEngine(API_KEY)
 
-const getAll = (req, res) => {
+const getParcelCarriers = (req, res) => {
     async function getCarriers() {
         try {
             const result = await shipengine.listCarriers()
@@ -90,7 +90,7 @@ const connectTestCarrier = (req, res) => {
 }
 
 module.exports = {
-    getAll,
+    getParcelCarriers,
     getSingleLTL,
     getLTLCarriers,
     connectTestCarrier

@@ -6,7 +6,7 @@ const webhooks = require('../controllers/webhooksController')
 
 const router = Router()
 
-router.get('/api/carriers', carriers.getAll)
+router.get('/api/carriers', carriers.getParcelCarriers)
 
 router.get('/api/get-ltl-carriers', carriers.getLTLCarriers)
 router.post('/api/get-ltl', carriers.getSingleLTL)
