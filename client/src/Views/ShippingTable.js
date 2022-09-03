@@ -9,7 +9,6 @@ const ShippingTable = (props) => {
     const PackageRow = ({ shipment }) => {//The sdk and the api return camelCase and underscore respectively
         if (isRates) {
             return (
-
                 <tr>
                     <td>{shipment.serviceType}</td>
                     <td>${shipment.shippingAmount.amount.toFixed(2)}</td>
@@ -59,18 +58,14 @@ const ShippingTable = (props) => {
                         <td>Days to Deliver</td>
                         <td>Estimated Delivery Date</td>
                         <td>Trackable</td>
-                        {
-
-                        }
                     </tr>
                 </thead>
 
                 <tbody>
-                    {
-                        packages.map(
-                            (shipment, idx) => {
-                                return <PackageRow key={idx} shipment={shipment} />
-                            })
+                    {packages.map(
+                        (shipment, idx) => {
+                            return <PackageRow key={idx} shipment={shipment} />
+                        })
                     }
                 </tbody>
             </table>
