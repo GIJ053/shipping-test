@@ -13,7 +13,7 @@ const Test = () => {
     const onSubmit = async (data) => {
         setLoading(true)
         await displayTracking(data).then(response => {
-            navigate(`/tracking/${data.carrierCode}/${data.trackingNumber}`, {state: {trackingInfo: response}})
+            navigate(`/tracking/${data.carrierCode}/${data.trackingNumber}`, { state: { trackingInfo: response } })
         })
     }
 
@@ -34,7 +34,7 @@ const Test = () => {
                 </form>
             </div>
 
-            <LoadingNotification loading={loading}/>
+            <LoadingNotification loading={loading} />
         </div>
     )
 }

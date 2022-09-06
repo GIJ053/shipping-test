@@ -35,6 +35,7 @@ export const DisplayTracking = () => {
                 min="0" max="3"
                 value={statusIndex}
                 className={`range w-3/4 cursor-default ${statusIndex === '3' ? 'range-accent' : ''}`}
+                readOnly
                 step="1" />
 
             <div className="w-4/5 flex justify-between text-sm ">
