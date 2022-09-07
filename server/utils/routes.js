@@ -3,6 +3,7 @@ const carriers = require('../controllers/carriersController')
 const rates = require('../controllers/ratesController')
 const tracking = require('../controllers/trackingController')
 const webhooks = require('../controllers/webhooksController')
+const stripe = require('../controllers/stripeController')
 
 const router = Router()
 
@@ -22,5 +23,8 @@ router.post('/api/stop-tracking', tracking.stopTracking)
 router.post('/api/create-webhook', webhooks.createTrackingWebhook)
 router.post('/api/track', webhooks.createTrackingWebhookListener)
 router.get('/api/webhooks', webhooks.listWebhooks)
+
+router.get('/api/create-stripe', stripe.createStripeAccount)
+router.get('/api/link-stripe', stripe.createAccountLink)
 
 module.exports = router
