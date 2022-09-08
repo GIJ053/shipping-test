@@ -9,19 +9,13 @@ const requestLogger = (req, res, next) => {
 }
 
 const unknownEndpoint = (req, res) => {
-    res.status(404).send({ error: 'unknown endpoint' })
+    res.status(404).send({ err: 'unknown endpoint' })
 }
 
 const errorHandler = (err, req, res, next) => {
-    logger.error(error.message)
+    logger.error(err.message)
 
-    if (error.name === 'CastError') {
-        return res.status(400).send({ error: 'malformatted id' })
-    } else if (error.name === 'ValidationError') {
-        return res.status(400).json({ error: error.message })
-    }
-
-    next(error)
+    next(err)
 }
 
 module.exports = {

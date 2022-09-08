@@ -11,6 +11,12 @@ const NavBar = (props) => {
                 <li className="hover-bordered"><Link to="/estimate">Estimate</Link></li>
 
                 <li className="hover-bordered"><Link to="/test-product">Product</Link></li>
+
+                <li className="hover-bordered"><Link to="/create-stripe">Create Account</Link></li>
+
+                <li className="hover-bordered"><Link to="/display-stripe">Display</Link></li>
+
+                <li className="hover-bordered"><Link to="/sim-purchase">Purchase</Link></li>
             </ul>
         </div>
     )

@@ -165,7 +165,7 @@ const getEstimate = (req, res) => {
     grabEstimate()
 }
 
-const createLabel = (req, res) => {
+const createLabel = (req, res, next) => {
     async function createLabelFromRate() {
         const savedRate = req.body.rateId
 
@@ -185,7 +185,7 @@ const createLabel = (req, res) => {
             console.log(result);
             return res.json(result)
         } catch (e) {
-            console.log("Error creating label: ", e.message);
+            next(e)
         }
     }
 

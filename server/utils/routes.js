@@ -1,9 +1,10 @@
 const Router = require('express')
-const carriers = require('../controllers/carriersController')
-const rates = require('../controllers/ratesController')
-const tracking = require('../controllers/trackingController')
-const webhooks = require('../controllers/webhooksController')
-const stripe = require('../controllers/stripeController')
+const carriers = require('../controllers/ShipEngine/carriersController')
+const rates = require('../controllers/ShipEngine/ratesController')
+const tracking = require('../controllers/ShipEngine/trackingController')
+const webhooks = require('../controllers/ShipEngine/webhooksController')
+const stripe = require('../controllers/Stripe/stripeController')
+const transfer = require('../controllers/Stripe/transfersController')
 
 const router = Router()
 
@@ -24,7 +25,15 @@ router.post('/api/create-webhook', webhooks.createTrackingWebhook)
 router.post('/api/track', webhooks.createTrackingWebhookListener)
 router.get('/api/webhooks', webhooks.listWebhooks)
 
-router.get('/api/create-stripe', stripe.createStripeAccount)
-router.get('/api/link-stripe', stripe.createAccountLink)
+router.post('/api/create-stripe', stripe.createStripeAccount)
+router.post('/api/delete-stripe', stripe.deleteStripeAccount)
+router.post('/api/link-stripe', stripe.createAccountLink)
+
+router.post('/api/topup', transfer.topUpStripe)
+router.post('/api/create-group', transfer.createPaymentGroup)
+router.post('/api/payout', transfer.payoutStripe)
+router.post('/api/payout-group', transfer.payoutGroup)
+
+router.post('/create-checkout-session', stripe.createStripeSession)
 
 module.exports = router

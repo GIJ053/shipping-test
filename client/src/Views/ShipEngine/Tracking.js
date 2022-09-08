@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { LoadingNotification } from "../components/LoadingNotification"
-import { displayTracking } from "../services/tracking"
+import { LoadingNotification } from "../../components/LoadingNotification"
+import { displayTracking } from "../../services/tracking"
 
 const Test = () => {
     const { register, handleSubmit } = useForm()

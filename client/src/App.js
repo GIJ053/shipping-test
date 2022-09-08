@@ -6,14 +6,16 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 import Home from "./Views/Home";
-import Tracking from "./Views/Tracking"
+import Tracking from "./Views/ShipEngine/Tracking"
 import NavBar from "./components/NavBar";
-import ShippingEstimate from "./Views/ShippingEstimate";
-import ShippingTable from "./Views/ShippingTable";
-import { TestProduct } from "./Views/TestProduct";
-import { DisplayTracking } from "./Views/DisplayTracking"
-
-const stripePromise = loadStripe("pk_test_51LddcRJoLuBft2Abc0hVq2tObHWfNYqtQiVSwL2hnnWK3MYwslg9jyZmT5QUZ7KzSkHjLCmT05RMTito2XrlPBJZ00rej4M2Cm")
+import ShippingEstimate from "./Views/ShipEngine/ShippingEstimate";
+import ShippingTable from "./Views/ShipEngine/ShippingTable";
+import { DisplayTracking } from "./Views/ShipEngine/DisplayTracking"
+import { TestProduct } from "./Views/Stripe/TestProduct";
+import { Success } from "./Views/Stripe/Success"
+import { CreateAccount } from "./Views/Stripe/CreateAccount"
+import { DisplayAccount } from "./Views/Stripe/DisplayAccount"
+import { SimulatePurchase } from "./Views/Stripe/SimulatePurchase"
 
 function App() {
   return (
@@ -33,6 +35,14 @@ function App() {
           <Route path="/tracking/:carrierCode/:trackingNumber" element={<DisplayTracking />} />
 
           <Route path="/test-product" element={<TestProduct />} />
+
+          <Route path="/success" element={<Success />} />
+
+          <Route path="/create-stripe" element={<CreateAccount />} />
+
+          <Route path="/display-stripe" element={<DisplayAccount />} />
+
+          <Route path="/sim-purchase" element={<SimulatePurchase />} />
         </Routes>
       </Router>
     </div>
