@@ -5,6 +5,7 @@ const tracking = require('../controllers/ShipEngine/trackingController')
 const webhooks = require('../controllers/ShipEngine/webhooksController')
 const stripe = require('../controllers/Stripe/stripeController')
 const transfer = require('../controllers/Stripe/transfersController')
+const payout = require('../controllers/PayPal/Payout')
 
 const router = Router()
 
@@ -35,5 +36,7 @@ router.post('/api/payout', transfer.payoutStripe)
 router.post('/api/payout-group', transfer.payoutGroup)
 
 router.post('/create-checkout-session', stripe.createStripeSession)
+
+router.post('/api/paypal-payout', payout.createPayout)
 
 module.exports = router
