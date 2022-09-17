@@ -8,11 +8,11 @@ const createPayout = (req, res, next) => {
         const amount = "1.00"
 
         const header = {
-            recipient_type: "EMAIL",
+            recipient_type: "PHONE",
             email_message: "SDK payouts test txn",
             note: "Enjoy your Payout!",
             sender_batch_id: senderBatchId,
-            email_subject: "Test transaction from SDK"
+            email_subject: "Test transaction from SDK",
         }
 
         const payouts = [{
@@ -21,16 +21,16 @@ const createPayout = (req, res, next) => {
                 currency: "USD",
                 value: amount
             },
-            receiver: "sb-e9wg620759117@business.example.com",
-            sender_item_id: "Test_txn_1"
+            receiver: "4085745538",
+            sender_item_id: "Test_txn_1",
         }, {
             note: "Your $1 Payout!",
             amount: {
                 currency: "USD",
                 value: amount
             },
-            receiver: "sb-ia47t720730757@personal.example.com",
-            sender_item_id: "Test_txn_2"
+            receiver: "4085901954",
+            sender_item_id: "Test_txn_2",
         }]
 
         const body = {
@@ -56,6 +56,10 @@ const createPayout = (req, res, next) => {
 
     payout()
 }
+
+// const getPayout = (req, res, next) => {
+//     async function displplayPayout
+// }
 
 module.exports = {
     createPayout,
